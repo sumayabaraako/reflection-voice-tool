@@ -1,5 +1,8 @@
 const themeSelect = document.getElementById("themeSelect");
 
+const newThemeInput = document.getElementById("newThemeInput");
+const addThemeBtn = document.getElementById("addThemeBtn");
+
 let themes = [
   "Crowth",
   "Work",
@@ -17,6 +20,27 @@ function loadThemes() {
 
     themeSelect.appendChild(option);
   });
+
+  
+  addThemeBtn.addEventListener("click", () => {
+
+  const newTheme = newThemeInput.value.trim();
+
+  if (newTheme === "") {
+    return;
+  }
+
+  themes.push(newTheme);
+
+  loadThemes();
+
+  themeSelect.value = newTheme;
+
+  newThemeInput.value = "";
+
+});
+
+
 }
 
 loadThemes();
