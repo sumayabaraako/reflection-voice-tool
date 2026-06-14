@@ -3,6 +3,10 @@ const themeSelect = document.getElementById("themeSelect");
 const newThemeInput = document.getElementById("newThemeInput");
 const addThemeBtn = document.getElementById("addThemeBtn");
 
+const continueBtn = document.getElementById("continueBtn");
+const themeSection = document.getElementById("theme-section");
+const recordSection = document.getElementById("record-section");
+
 let themes =
   JSON.parse(localStorage.getItem("themes")) ||
   [
@@ -28,7 +32,6 @@ function loadThemes() {
 
 }
 
-
 addThemeBtn.addEventListener("click", () => {
 
   const newTheme = newThemeInput.value.trim();
@@ -39,7 +42,6 @@ addThemeBtn.addEventListener("click", () => {
 
   themes.push(newTheme);
 
-  // LOCAL STORAGE 
   localStorage.setItem(
     "themes",
     JSON.stringify(themes)
@@ -50,6 +52,18 @@ addThemeBtn.addEventListener("click", () => {
   themeSelect.value = newTheme;
 
   newThemeInput.value = "";
+
+});
+
+continueBtn.addEventListener("click", () => {
+
+  localStorage.setItem(
+    "selectedTheme",
+    themeSelect.value
+  );
+
+  themeSection.style.display = "none";
+  recordSection.style.display = "block";
 
 });
 
