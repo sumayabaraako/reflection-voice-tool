@@ -32,26 +32,32 @@
         </section>
 
         <section id="record-section">
-            <h2>Record reflection</h2>
+    <h2>Record reflection</h2>
 
-            <p id="recordStatus">
-                Ready to record
-            </p>
+    <p id="recordStatus">
+        Ready to record
+    </p>
 
-            <button id="startBtn">
-                Start recording
-            </button>
+    <div class="recorder-card">
+        <button id="startBtn" class="mic-button" aria-label="Start recording">
+            <span class="mic-icon"></span>
+        </button>
 
-            <button id="stopBtn" disabled>
-                Stop recording
-            </button>
+        <p class="record-hint">
+            Tap to start recording
+        </p>
+    </div>
 
-            <audio id="audioPlayer" controls></audio>
+    <button id="stopBtn" class="stop-button" disabled>
+        Stop recording
+    </button>
 
-            <button id="saveBtn" disabled>
-                Save reflection
-            </button>
-        </section>
+    <audio id="audioPlayer" controls></audio>
+
+    <button id="saveBtn" disabled>
+        Save reflection
+    </button>
+</section>
     </div>
 
     <script src="script.js"></script>
