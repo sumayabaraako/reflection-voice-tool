@@ -3,26 +3,33 @@ const themeSelect = document.getElementById("themeSelect");
 const newThemeInput = document.getElementById("newThemeInput");
 const addThemeBtn = document.getElementById("addThemeBtn");
 
-let themes = [
-  "Crowth",
-  "Work",
-  "Learning"
-];
+let themes =
+  JSON.parse(localStorage.getItem("themes")) ||
+  [
+    "Growth",
+    "Work",
+    "Learning"
+  ];
 
 function loadThemes() {
+
   themeSelect.innerHTML = "";
 
   themes.forEach((theme) => {
+
     const option = document.createElement("option");
 
     option.value = theme;
     option.textContent = theme;
 
     themeSelect.appendChild(option);
+
   });
 
-  
-  addThemeBtn.addEventListener("click", () => {
+}
+
+
+addThemeBtn.addEventListener("click", () => {
 
   const newTheme = newThemeInput.value.trim();
 
@@ -32,6 +39,12 @@ function loadThemes() {
 
   themes.push(newTheme);
 
+  // LOCAL STORAGE 
+  localStorage.setItem(
+    "themes",
+    JSON.stringify(themes)
+  );
+
   loadThemes();
 
   themeSelect.value = newTheme;
@@ -39,8 +52,5 @@ function loadThemes() {
   newThemeInput.value = "";
 
 });
-
-
-}
 
 loadThemes();
