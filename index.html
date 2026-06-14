@@ -9,10 +9,11 @@
 <body>
 
     <div class="container">
-     <h1>Speaking Memo Reflection Tool</h1>
+        <h1>Speaking Memo Reflection Tool</h1>
 
         <section id="theme-section">
-          <h2>Choose a theme</h2>
+            <h2>Choose a theme</h2>
+
             <select id="themeSelect"></select>
 
             <input
@@ -28,9 +29,29 @@
             <button id="continueBtn">
                 Further
             </button>
+        </section>
 
-        </section> 
+        <section id="record-section">
+            <h2>Record reflection</h2>
 
+            <p id="recordStatus">
+                Ready to record
+            </p>
+
+            <button id="startBtn">
+                Start recording
+            </button>
+
+            <button id="stopBtn" disabled>
+                Stop recording
+            </button>
+
+            <audio id="audioPlayer" controls></audio>
+
+            <button id="saveBtn" disabled>
+                Save reflection
+            </button>
+        </section>
     </div>
 
     <script src="script.js"></script>
