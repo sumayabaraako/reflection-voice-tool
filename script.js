@@ -13,6 +13,9 @@ const audioPlayer = document.getElementById("audioPlayer");
 const recordStatus = document.getElementById("recordStatus");
 const saveBtn = document.getElementById("saveBtn");
 
+const constellationSection = document.getElementById("constellation-section");
+const constellation = document.getElementById("constellation");
+
 let mediaRecorder;
 let audioChunks = [];
 let audioBlob;
@@ -114,4 +117,66 @@ stopBtn.addEventListener("click", () => {
   }
 });
 
+
+
+
+saveBtn.addEventListener("click", () => {
+  const selectedTheme = localStorage.getItem("selectedTheme");
+
+  const reflection = {
+    id: Date.now(),
+    theme: selectedTheme,
+    date: new Date().toLocaleString(),
+    audio: audioUrl
+  };
+
+  let reflections =
+    JSON.parse(localStorage.getItem("reflections")) || [];
+
+  reflections.push(reflection);
+
+  localStorage.setItem(
+    "reflections",
+    JSON.stringify(reflections)
+  );
+
+  recordSection.style.display = "none";
+  constellationSection.style.display = "block";
+
+  renderConstellation();
+});
+
+function renderConstellation() {
+  constellation.innerHTML = "";
+
+  let reflections =
+    JSON.parse(localStorage.getItem("reflections")) || [];
+
+  const usedThemes = [];
+
+  reflections.forEach((reflection) => {
+    if (!usedThemes.includes(reflection.theme)) {
+      usedThemes.push(reflection.theme);
+    }
+  });
+
+  usedThemes.forEach((theme) => {
+    const count = reflections.filter((reflection) => {
+      return reflection.theme === theme;
+    }).length;
+
+    const planet = document.createElement("div");
+    planet.classList.add("planet");
+
+    planet.innerHTML = `
+      <span>${count}</span>
+      <strong>${theme}</strong>
+    `;
+
+    planet.style.left = Math.random() * 70 + "%";
+    planet.style.top = Math.random() * 70 + "%";
+
+    constellation.appendChild(planet);
+  });
+}
 loadThemes();
