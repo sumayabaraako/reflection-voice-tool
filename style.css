@@ -160,3 +160,39 @@ audio {
 #constellation-section {
   display: none;
 }
+
+#constellation {
+  position: relative;
+  min-height: 520px;
+  background: #0B0420;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.planet {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 35% 35%, #ffffff, #7c6fdb 35%, #21105c 100%);
+  box-shadow: 0 0 35px rgba(124, 111, 219, 0.9);
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.planet span {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.planet strong {
+  font-size: 0.9rem;
+}
