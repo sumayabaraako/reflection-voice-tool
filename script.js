@@ -15,6 +15,7 @@ const saveBtn = document.getElementById("saveBtn");
 
 const constellationSection = document.getElementById("constellation-section");
 const constellation = document.getElementById("constellation");
+const memoList = document.getElementById("memo-list");
 
 let mediaRecorder;
 let audioChunks = [];
@@ -180,36 +181,36 @@ function renderConstellation() {
       return reflection.theme === theme;
     }).length;
 
-      const colorIndex = usedThemes.indexOf(theme);
-      const planetColor = colors[colorIndex % colors.length];
+    const colorIndex = usedThemes.indexOf(theme);
+    const planetColor = colors[colorIndex % colors.length];
 
     const planet = document.createElement("div");
     planet.classList.add("planet");
 
-   planet.innerHTML = `
-  <div class="planet-count">${count}</div>
-  <div class="planet-text">memos</div>
-`;
-      const label = document.createElement("div");
-      label.classList.add("planet-label");
-      label.textContent = theme;
+    planet.innerHTML = `
+      <div class="planet-count">${count}</div>
+      <div class="planet-text">memos</div>
+    `;
 
-      planet.appendChild(label);
+    const label = document.createElement("div");
+    label.classList.add("planet-label");
+    label.textContent = theme;
 
-    
-      const positions = [
-       { left: "10%", top: "12%" },
-       { left: "58%", top: "10%" },
-       { left: "28%", top: "42%" },
+    planet.appendChild(label);
+
+    const positions = [
+      { left: "10%", top: "12%" },
+      { left: "58%", top: "10%" },
+      { left: "28%", top: "42%" },
       { left: "65%", top: "48%" },
       { left: "12%", top: "72%" },
-       { left: "52%", top: "76%" }
-];
+      { left: "52%", top: "76%" }
+    ];
 
-const position = positions[colorIndex % positions.length];
+    const position = positions[colorIndex % positions.length];
 
-planet.style.left = position.left;
-planet.style.top = position.top;
+    planet.style.left = position.left;
+    planet.style.top = position.top;
 
     planet.style.background = `radial-gradient(
       circle at 35% 35%,
@@ -220,8 +221,34 @@ planet.style.top = position.top;
 
     planet.style.boxShadow = `0 0 35px ${planetColor}`;
 
+    planet.addEventListener("click", () => {
+      showMemos(theme);
+    });
+
     constellation.appendChild(planet);
   });
 }
 
+function showMemos(theme) {
+  memoList.innerHTML = `<h3>${theme} memos</h3>`;
+
+  const reflections =
+    JSON.parse(localStorage.getItem("reflections")) || [];
+
+  const themeMemos = reflections.filter((reflection) => {
+    return reflection.theme === theme;
+  });
+
+  themeMemos.forEach((memo) => {
+    const memoItem = document.createElement("div");
+    memoItem.classList.add("memo-item");
+
+    memoItem.innerHTML = `
+      <p>${memo.date}</p>
+      <audio controls src="${memo.audio}"></audio>
+    `;
+
+    memoList.appendChild(memoItem);
+  });
+}
 loadThemes();
