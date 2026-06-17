@@ -146,6 +146,21 @@ saveBtn.addEventListener("click", () => {
   renderConstellation();
 });
 
+
+
+const colors = [
+  "#6EF3D6",
+  "#FF4DDF",
+  "#42E87B",
+  "#FFD28A",
+  "#FF4D6D",
+  "#7A8CFF",
+  "#A77BFF",
+  "#00D4FF",
+  "#FFB703",
+  "#C77DFF"
+];
+
 function renderConstellation() {
   constellation.innerHTML = "";
 
@@ -165,18 +180,48 @@ function renderConstellation() {
       return reflection.theme === theme;
     }).length;
 
+      const colorIndex = usedThemes.indexOf(theme);
+      const planetColor = colors[colorIndex % colors.length];
+
     const planet = document.createElement("div");
     planet.classList.add("planet");
 
-    planet.innerHTML = `
-      <span>${count}</span>
-      <strong>${theme}</strong>
-    `;
+   planet.innerHTML = `
+  <div class="planet-count">${count}</div>
+  <div class="planet-text">memos</div>
+`;
+      const label = document.createElement("div");
+      label.classList.add("planet-label");
+      label.textContent = theme;
 
-    planet.style.left = Math.random() * 70 + "%";
-    planet.style.top = Math.random() * 70 + "%";
+      planet.appendChild(label);
+
+    
+      const positions = [
+       { left: "10%", top: "12%" },
+       { left: "58%", top: "10%" },
+       { left: "28%", top: "42%" },
+      { left: "65%", top: "48%" },
+      { left: "12%", top: "72%" },
+       { left: "52%", top: "76%" }
+];
+
+const position = positions[colorIndex % positions.length];
+
+planet.style.left = position.left;
+planet.style.top = position.top;
+
+    planet.style.background = `radial-gradient(
+      circle at 35% 35%,
+      #ffffff,
+      ${planetColor} 35%,
+      #0B0420 100%
+    )`;
+
+    planet.style.boxShadow = `0 0 35px ${planetColor}`;
 
     constellation.appendChild(planet);
   });
 }
+
 loadThemes();
